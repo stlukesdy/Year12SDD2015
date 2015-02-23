@@ -13,17 +13,41 @@ namespace RealEstate
             Console.WriteLine("Hello world");
 
 
-            RealEstateProperty property1 = new RealEstateProperty();
-            property1.Location = "Dee Why";
+            RealEstateProperty property1 = new RealEstateProperty("Dee Why");
+
             property1.Price = 100000;
 
-            RealEstateProperty property2 = new RealEstateProperty();
-            property2.Location = "Manly";
+            RealEstateProperty property2 = new RealEstateProperty("Manly");
+
             property2.Price = 200000;
 
 
-            property1.Print();
-            property2.Print();
+
+
+            House house1 = new House();
+            house1.HasGarden = true;
+            house1.Price = 1000000;
+
+            Flat flat1 = new Flat();
+            flat1.HasBalkony = false;
+            flat1.Price = 50000;
+
+            //property1.Print();
+            //property2.Print();
+            //house1.Print();
+            //flat1.Print();
+
+            RealEstateProperty[] list = new RealEstateProperty[4];
+            list[0] = property1;
+            list[1] = property2;
+            list[2] = house1;
+            list[3] = flat1;
+
+            for (int i = 0; i < list.Length; i++)
+            {
+                list[i].Print();
+            }
+
 
             Console.ReadLine();
 
@@ -32,16 +56,20 @@ namespace RealEstate
 
     public class RealEstateProperty
     {
-        public string Location;
+        protected string Location;
         public int Price;
 
-        public RealEstateProperty()
+        public RealEstateProperty() : this("default")
         {
-            this.Location = "Default";
+        }
+
+        public RealEstateProperty(string location)
+        {
+            this.Location = location;
             this.Price = 0;
         }
 
-        public void Print()
+        public virtual  void Print()
         {
             Console.WriteLine("Property Location " + this.Location);
             Console.WriteLine("Property Price " + this.Price);
@@ -50,6 +78,24 @@ namespace RealEstate
 
     }
 
+    public class House : RealEstateProperty
+    {
+        public bool HasGarden;
+
+        public override void Print()
+        {
+            Console.WriteLine("House =============");
+            Console.WriteLine("Has garden = " + this.HasGarden);
+            Console.WriteLine();
+        }
+
+    }
+
+
+    public class Flat : RealEstateProperty
+    {
+        public bool HasBalkony;
+    }
 
 
 }
